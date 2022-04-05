@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "560748906113",
+    "project_id": "grizzphys",
+    "storage_bucket": "grizzphys.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560748906113:android:83654c74279d8c5173ef80",
+        "android_client_info": {
+          "package_name": "com.grizzphys.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560748906113-6g15vsslse42n07lvih8pm4msq7oeska.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5v_aVmfzfmIrE2tY8A86O87p71SmYIhk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560748906113-6g15vsslse42n07lvih8pm4msq7oeska.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "560748906113-r38jd8j4tikrlcoiorr0uda7mtear7he.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.grizzphys.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
