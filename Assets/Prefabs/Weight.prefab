@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2591825464055042797}
   - component: {fileID: 2591825464055042796}
   - component: {fileID: 2591825464055042799}
-  - component: {fileID: 2591825464055042802}
   - component: {fileID: 2591825464055042803}
   m_Layer: 5
   m_Name: Weight
@@ -135,19 +134,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2591825464055042802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2591825464055042793}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f4d45746f878bc4c91327ae32aff433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.1
 --- !u!114 &2591825464055042803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  weightAmount: 0
+  weightUnit: 
 --- !u!1 &2591825464907374099
 GameObject:
   m_ObjectHideFlags: 0
