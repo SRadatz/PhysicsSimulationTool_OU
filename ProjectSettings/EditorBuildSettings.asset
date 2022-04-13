@@ -48,7 +48,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/Module3/ModThreeExSelectB.unity
     guid: 2426e016972cb154fbbdbbdc12990c46
   - enabled: 1
-    path: Assets/_Scenes/Module1/m1ExOne/m1ExOneShowParamNEW.unity
+    path: Assets/_Scenes/Module1/m1ExOne/m1ExOneShowParam.unity
     guid: 212e9ade15a318e49987dd00ba608f16
   - enabled: 1
     path: Assets/_Scenes/Module1/m1ExOne/m1ExOneShowQuiz.unity
