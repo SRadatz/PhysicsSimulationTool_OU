@@ -16,14 +16,12 @@ public class FirebaseManager : Singleton<FirebaseManager>
     public DatabaseReference DBreference;
     public static string UserID;
 
-    //login variables
     [Header("Login")]
     public TMP_InputField emailLoginField;
     public TMP_InputField passwordLoginField;
     public TMP_Text loginWarningText;
     public TMP_Text loginConfirmText;
 
-    //register variables
     [Header("Register")]
     public TMP_InputField usernameRegField;
     public TMP_InputField emailRegField;
@@ -76,7 +74,6 @@ public class FirebaseManager : Singleton<FirebaseManager>
         passwordLoginField.text = "";
     }
 
-    //register button functions
     public void RegisterButton()
     {
         StartCoroutine(Register(emailRegField.text, passwordRegField.text, usernameRegField.text));
@@ -218,12 +215,12 @@ public class FirebaseManager : Singleton<FirebaseManager>
 
     private IEnumerator UpdateUsernameAuth(string _username)
     {
-        //Create a user profile and set the username
+        
         UserProfile profile = new UserProfile { DisplayName = _username };
 
-        //Call the Firebase auth update user profile function passing the profile with the username
+        
         var ProfileTask = User.UpdateUserProfileAsync(profile);
-        //Wait until the task completes
+        
         yield return new WaitUntil(predicate: () => ProfileTask.IsCompleted);
 
         if (ProfileTask.Exception != null)
@@ -232,13 +229,13 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            //Auth username is now updated
+            
         }
     }
 
     private IEnumerator UpdateUsernameDatabase(string _username)
     {
-        //Set the currently logged in user username in the database
+        
         var DBTask = DBreference.Child("users").Child(User.UserId).Child("name").SetValueAsync(_username);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -249,13 +246,13 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            //Database username is now updated
+            Debug.Log("Username updated");
         }
     }
 
     private IEnumerator UpdateEmail(string _email)
     {
-        //Set the currently logged in user xp
+        
         var DBTask = DBreference.Child("users").Child(User.UserId).Child("email").SetValueAsync(_email);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -266,12 +263,12 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            //Xp is now updated
+            Debug.Log("Email updated");
         }
     }
     private IEnumerator UpdateStudentID(string _ID)
     {
-        //Set the currently logged in user kills
+        
         var DBTask = DBreference.Child("users").Child(User.UserId).Child("sid").SetValueAsync(_ID);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -282,13 +279,13 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            //Kills are now updated
+            Debug.Log("SID updated");
         }
     }
 
     public IEnumerator LoadUserData()
     {
-        //Get the currently logged in user data
+        
         var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -299,14 +296,14 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else if (DBTask.Result.Value == null)
         {
-            //No data exists yet
+            //No data exists
             nameField.text = "";
             emailField.text = "";
             StudentIDField.text = "";
         }
         else
         {
-            //Data has been retrieved
+            
             DataSnapshot snapshot = DBTask.Result;
 
             nameField.text = snapshot.Child("name").Value.ToString();
