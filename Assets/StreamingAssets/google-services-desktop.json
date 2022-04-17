@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "560748906113",
+    "firebase_url": "https://grizzphys-default-rtdb.firebaseio.com",
     "project_id": "grizzphys",
     "storage_bucket": "grizzphys.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "560748906113-caouj7akvvauvlltldcmlblbutv02dp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grizzphys.android",
+            "certificate_hash": "f55c092b63f7a365d1fdab35cfa983b591c38152"
+          }
+        },
+        {
+          "client_id": "560748906113-s7798vnkhcd9vk2j0pkcfl3rd6vahacd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.grizzphys.android",
+            "certificate_hash": "ce57f7960d50e117a093721ce52455644700a195"
+          }
+        },
         {
           "client_id": "560748906113-6g15vsslse42n07lvih8pm4msq7oeska.apps.googleusercontent.com",
           "client_type": 3

@@ -9,6 +9,15 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+    public void LoadLoginScene()
+    {
+        SceneManager.LoadScene("Login");
+    }
+
+    public void LoadProfilePage()
+    {
+        SceneManager.LoadScene("ProfilePage");
+    }
     public void LoadSceneByName(string x)
     {
         SceneManager.LoadScene(x);
