@@ -2019,7 +2019,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 858858581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d65245a82a76bb64c918ed41aabde760, type: 3}
+  m_Script: {fileID: 11500000, guid: 7eedd84ee4b7a3b4c976237d8e70ff29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _quizText: {fileID: 1962102501}
@@ -2934,7 +2934,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 858858582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Mod2Ex1Quiz, Assembly-CSharp
         m_MethodName: ReadeUserInput
         m_Mode: 0
@@ -3807,7 +3807,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 858858582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Mod2Ex1Quiz, Assembly-CSharp
         m_MethodName: CompareResult
         m_Mode: 1
