@@ -258,6 +258,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
         string email = User.Email;
         string name = "Name";
         bool isTeacher = false;
+        string userIdent = User.UserId;
         string sid = "G00123456";
         float Mod1grade = 0.0f;
         float Mod2grade = 0.0f;
@@ -313,7 +314,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            Debug.Log("Email updated");
+            Debug.Log("Mod1 updated");
         }
 
         var DBTask5 = DBreference.Child("users").Child(User.UserId).Child("Mod2grade").SetValueAsync(Mod2grade);
@@ -326,7 +327,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            Debug.Log("Email updated");
+            Debug.Log("Mod2 updated");
         }
 
         var DBTask6 = DBreference.Child("users").Child(User.UserId).Child("Mod3grade").SetValueAsync(Mod3grade);
@@ -339,7 +340,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            Debug.Log("Email updated");
+            Debug.Log("Mod3 updated");
         }
 
         var DBTask7 = DBreference.Child("users").Child(User.UserId).Child("Mod4grade").SetValueAsync(Mod4grade);
@@ -352,7 +353,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            Debug.Log("Email updated");
+            Debug.Log("Mod4 updated");
         }
 
         var DBTask8 = DBreference.Child("users").Child(User.UserId).Child("isTeacher").SetValueAsync(isTeacher);
@@ -365,7 +366,20 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
         else
         {
-            Debug.Log("Email updated");
+            Debug.Log("isTeacher updated");
+        }
+
+        var DBTask9 = DBreference.Child("users").Child(User.UserId).Child("UserID").SetValueAsync(userIdent);
+
+        yield return new WaitUntil(predicate: () => DBTask9.IsCompleted);
+
+        if (DBTask9.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask9.Exception}");
+        }
+        else
+        {
+            Debug.Log("UID updated");
         }
     }
     //private IEnumerator UpdateStudentID(string _ID)

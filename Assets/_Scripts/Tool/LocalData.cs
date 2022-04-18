@@ -4,6 +4,7 @@ using Firebase;
 using Firebase.Auth;
 using Firebase.Database;
 using TMPro;
+using System.Linq;
 
 public class LocalData : MonoBehaviour
 {
@@ -12,11 +13,13 @@ public class LocalData : MonoBehaviour
     private FirebaseAuth auth;
     private string UserId = FirebaseManager.UserID;
     private bool isTeacher = FirebaseManager.isTeacher;
+    private bool nameUnique;
 
     [Header("UserData")]
     public TMP_InputField nameField;
     public TMP_InputField emailField;
     public TMP_InputField StudentIDField;
+    public TMP_Text warning;
 
     private void Start()
     {
@@ -32,10 +35,9 @@ public class LocalData : MonoBehaviour
     }
     public void SaveDataButton()
     {
-        StartCoroutine(UpdateUsernameDatabase(nameField.text));
-        StartCoroutine(UpdateEmail(emailField.text));
-        StartCoroutine(UpdateStudentID(StudentIDField.text));
-        StartCoroutine(UpdateIsTeacher(isTeacher));
+        warning.text = "";
+        string VerifyName = nameField.text;
+        StartCoroutine(NameVerify(VerifyName));
     }
 
     private IEnumerator UpdateUsernameDatabase(string _username)
@@ -162,6 +164,63 @@ public class LocalData : MonoBehaviour
             {
                 isTeacher = false;
                 FirebaseManager.isTeacher = false;
+            }
+        }
+    }
+
+    public IEnumerator NameVerify(string studentName)
+    {
+        int namesAllowed = 1;
+        int namesFound = 0;
+
+        var DBTask = reference.Child("users").OrderByChild("name").GetValueAsync();
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            DataSnapshot snapshot = DBTask.Result;
+
+            foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
+            {
+                string checkName = childSnapshot.Child("name").Value.ToString();
+                string checkUID = childSnapshot.Child("UserID").Value.ToString();
+                Debug.Log(namesFound + " Names Found ///// " + nameUnique + " NameUnique Value");
+                if (studentName == checkName && FirebaseManager.UserID != checkUID)
+                {
+                    Debug.Log(checkName + " vs " + studentName + " Dupe found");
+                    namesFound += 1;                    
+                }
+                else
+                {
+                    Debug.Log(checkName + " vs " + studentName + " is unique");
+                }
+            }
+
+            if(namesFound < namesAllowed)
+            {
+                nameUnique = true;                
+            }
+            else
+            {
+                nameUnique = false;
+            }
+            
+            if (nameUnique == false)
+            {
+                warning.text = studentName + " is not a unique name";
+            }
+            else
+            {
+                StartCoroutine(UpdateUsernameDatabase(nameField.text));
+                StartCoroutine(UpdateEmail(emailField.text));
+                StartCoroutine(UpdateStudentID(StudentIDField.text));
+                StartCoroutine(UpdateIsTeacher(isTeacher));
+                warning.text = "Information Updated";
             }
         }
     }
