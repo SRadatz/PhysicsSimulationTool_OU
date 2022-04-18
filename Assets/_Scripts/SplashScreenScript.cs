@@ -14,7 +14,7 @@ public class SplashScreenScript : MonoBehaviour
     IEnumerator waiter()
     {
         yield return new WaitForSecondsRealtime(2);
-        sceneLoader.LoadMainMenuScene();
+        sceneLoader.LoadSceneByName("Login");
 
     }
 
