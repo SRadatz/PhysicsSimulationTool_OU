@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 
 public class ExerciseTwoSimScript : MonoBehaviour
 {
+    [SerializeField] TMP_Text PromptText;
+
     [SerializeField] TMP_Text AnswerTxt1;
     [SerializeField] TMP_Text AnswerTxt2;
     [SerializeField] TMP_Text AnswerTxt3;
@@ -46,20 +50,43 @@ public class ExerciseTwoSimScript : MonoBehaviour
     [SerializeField] GameObject DigitXMark12;
 
     //string [] sigFigQuestions = new string[] {}
-    //string[] prompts =  new string[] {"Average velocity of a car having traveled 8.4km in 2.03s", "Force on a 12.34kg block accelerating at 5.242m/s", "Launch speed of a ball thrown at a 54 degree angle traveling 24m in 2.2s",
-    //"Revolutions per second required to give an astronaut of 29.4m/s in a circular motion w/ 9.45m radius", "Speed of a wrecking ball rotating counterclockwise with (-22/5i + 20.2j)m/s/s acceleration",
-    //"Maximum speed a light truck can go around a 75m radius curve at 32m/s", "Initial speed a 2m tall basketball player standing 10m from a 3.05m hoop must throw the ball to get nothing but net."}
-    //string[] promptAnswers =  new string[] {"0004.13793103", "0064.68628000", "0018.14602160", "0000.28075268", "0006.67008246", "0022.62741700", "0010.66395800" }
-    //string [] promptAnswerUnits = new string [] {"km/s", "N", "m/s", "rps", "m/s", "m/s", "m/s" }
+    string [] prompts = new string[] {"Average velocity of a car having traveled 8.4km in 2.03s", "Force on a 12.34kg block accelerating at 5.242m/s", "Launch speed of a ball thrown at a 54 degree angle traveling 24m in 2.2s",
+        "Revolutions per second required to give an astronaut of 29.4m/s in a circular motion w/ 9.45m radius", "Speed of a wrecking ball rotating counterclockwise with (-22/5i + 20.2j)m/s/s acceleration",
+        "Maximum speed a light truck can go around a 75m radius curve at 32m/s", "Initial speed a 2m tall basketball player standing 10m from a 3.05m hoop must throw the ball to get nothing but net."};
+    string [] promptAnswers = new string[] { "0004.13793103", "0064.68628000", "0018.14602160", "0000.28075268", "0006.67008246", "0022.62741700", "0010.66395800" };
+    string [] promptAnswerUnits = new string [] {"km/s", "N", "m/s", "rps", "m/s", "m/s", "m/s"};
+    int arrayIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GeneratePrompt(arrayIndex);
     }
-
     // Update is called once per frame
     void Update()
     {
         
+    }
+    void GeneratePrompt(int arrIndex)
+    {
+        PromptText.text = prompts[arrayIndex];
+        AnswerTxt1.text = promptAnswers[arrayIndex][0] + "";
+        AnswerTxt2.text = promptAnswers[arrayIndex][1] + "";
+        AnswerTxt3.text = promptAnswers[arrayIndex][2] + "";
+        AnswerTxt4.text = promptAnswers[arrayIndex][3] + "";
+        //Skip 4 as that is the decimal
+        AnswerTxt5.text = promptAnswers[arrayIndex][5] + "";
+        AnswerTxt6.text = promptAnswers[arrayIndex][6] + "";
+        AnswerTxt7.text = promptAnswers[arrayIndex][7] + "";
+        AnswerTxt8.text = promptAnswers[arrayIndex][8] + "";
+        AnswerTxt9.text = promptAnswers[arrayIndex][9] + "";
+        AnswerTxt10.text = promptAnswers[arrayIndex][10] + "";
+        AnswerTxt11.text = promptAnswers[arrayIndex][11] + "";
+        AnswerTxt12.text = promptAnswers[arrayIndex][12] + "";
+
+    }
+    void CheckAnswer(int btnPressed, int arrIndex)
+    {
+
     }
 }
