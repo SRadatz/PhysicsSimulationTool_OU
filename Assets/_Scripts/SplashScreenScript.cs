@@ -13,7 +13,7 @@ public class SplashScreenScript : MonoBehaviour
     }
     IEnumerator waiter()
     {
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(2);
         sceneLoader.LoadMainMenuScene();
 
     }
