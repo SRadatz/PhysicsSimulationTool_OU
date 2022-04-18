@@ -11,6 +11,7 @@ public class LocalData : MonoBehaviour
     private DatabaseReference reference;
     private FirebaseAuth auth;
     private string UserId = FirebaseManager.UserID;
+    private bool isTeacher = FirebaseManager.isTeacher;
 
     [Header("UserData")]
     public TMP_InputField nameField;
@@ -27,12 +28,14 @@ public class LocalData : MonoBehaviour
     public void LoadData()
     {
         StartCoroutine(LoadUserData());
+        StartCoroutine(isTeacherCheck());
     }
     public void SaveDataButton()
     {
         StartCoroutine(UpdateUsernameDatabase(nameField.text));
         StartCoroutine(UpdateEmail(emailField.text));
         StartCoroutine(UpdateStudentID(StudentIDField.text));
+        StartCoroutine(UpdateIsTeacher(isTeacher));
     }
 
     private IEnumerator UpdateUsernameDatabase(string _username)
@@ -54,7 +57,7 @@ public class LocalData : MonoBehaviour
 
     private IEnumerator UpdateEmail(string _email)
     {
-        //Set the currently logged in user xp
+        
         var DBTask = reference.Child("users").Child(UserId).Child("email").SetValueAsync(_email);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -70,7 +73,7 @@ public class LocalData : MonoBehaviour
     }
     private IEnumerator UpdateStudentID(string _ID)
     {
-        //Set the currently logged in user kills
+        
         var DBTask = reference.Child("users").Child(UserId).Child("sid").SetValueAsync(_ID);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -82,6 +85,23 @@ public class LocalData : MonoBehaviour
         else
         {
             Debug.Log("StudentID updated");
+        }
+    }
+
+    private IEnumerator UpdateIsTeacher(bool _isTeacher)
+    {
+
+        var DBTask = reference.Child("users").Child(UserId).Child("isTeacher").SetValueAsync(_isTeacher);
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.Log($"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            Debug.Log("isTeacher updated");
         }
     }
 
@@ -113,6 +133,78 @@ public class LocalData : MonoBehaviour
             StudentIDField.text = snapshot.Child("sid").Value.ToString();
         }
     }
+
+    public IEnumerator isTeacherCheck()
+    {
+
+        var DBTask = reference.Child("users").Child(UserId).GetValueAsync();
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+
+            DataSnapshot snapshot = DBTask.Result;
+
+            string isTeacherChek = snapshot.Child("isTeacher").Value.ToString();
+            Debug.Log("isTeacherChek = " + isTeacherChek);
+
+            if (isTeacherChek == "True")
+            {
+                isTeacher = true;
+                FirebaseManager.isTeacher = true;
+            }
+            else
+            {
+                isTeacher = false;
+                FirebaseManager.isTeacher = false;
+            }
+        }
+    }
+
+    //public IEnumerator TableCheck()
+    //{
+    //
+    //    var DBTask = reference.Child("users").Child(UserId).GetValueAsync();
+    //
+    //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+    //
+    //    if (DBTask.Exception != null)
+    //    {
+    //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+    //    }
+    //    else if (DBTask.Result.Value == null)
+    //    {
+    //        Debug.Log("cannot grab grades");
+    //    }
+    //    else
+    //    {
+    //
+    //        DataSnapshot snapshot = DBTask.Result;
+    //
+    //        string nameCheck = snapshot.Child("name").Value.ToString();
+    //        string emailCheck = snapshot.Child("email").Value.ToString();
+    //        string sidCheck = snapshot.Child("sid").Value.ToString();
+    //        string Mod1Check = snapshot.Child("Mod1grade").Value.ToString();
+    //        string nameCheck = snapshot.Child("name").Value.ToString();
+    //
+    //
+    //        if (isTeacherChek == "True")
+    //        {
+    //            isTeacher = true;
+    //            FirebaseManager.isTeacher = true;
+    //        }
+    //        else
+    //        {
+    //            isTeacher = false;
+    //            FirebaseManager.isTeacher = false;
+    //        }
+    //    }
+    //}
 
     public void SignOutButton()
     {
