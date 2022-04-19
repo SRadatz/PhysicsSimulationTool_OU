@@ -41,7 +41,7 @@ public class QuizSimScript : MonoBehaviour
     }
     public void SetSimCanvasEnabled(bool x)
     {
-        canvas.gameObject.SetActive(false);
+        canvas.gameObject.SetActive(x);
     }
 }
 
