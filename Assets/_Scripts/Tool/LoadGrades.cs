@@ -16,6 +16,7 @@ public class LoadGrades : MonoBehaviour
     private bool isTeacher = FirebaseManager.isTeacher;
 
     Dictionary<string, string> studentList = new Dictionary<string, string>();
+    string currentStudent;
 
     [Header("UserData")]
     public TMP_Text Student;
@@ -126,6 +127,7 @@ public class LoadGrades : MonoBehaviour
             string StudentId = studentList[studentName];
             Debug.Log(StudentId);
             StartCoroutine(TeacherLoadGradeData(StudentId));
+            currentStudent = StudentId;
         }
         else
         {
@@ -159,17 +161,17 @@ public class LoadGrades : MonoBehaviour
 
     public void UpdateGrades()
     {
-        StartCoroutine(Mod1Grade(int.Parse(Module1Input.text)));
-        StartCoroutine(Mod2Grade(int.Parse(Module2Input.text)));
-        StartCoroutine(Mod3Grade(int.Parse(Module3Input.text)));
-        StartCoroutine(Mod4Grade(int.Parse(Module4Input.text)));
+        StartCoroutine(Mod1Grade(int.Parse(Module1Input.text), currentStudent));
+        StartCoroutine(Mod2Grade(int.Parse(Module2Input.text), currentStudent));
+        StartCoroutine(Mod3Grade(int.Parse(Module3Input.text), currentStudent));
+        StartCoroutine(Mod4Grade(int.Parse(Module4Input.text), currentStudent));
         //warning.text = "Information Updated";
     }
 
-    private IEnumerator Mod1Grade(int grade)
+    private IEnumerator Mod1Grade(int grade, string uid)
     {
 
-        var DBTask = reference.Child("users").Child(UserId).Child("Mod1grade").SetValueAsync(grade);
+        var DBTask = reference.Child("users").Child(uid).Child("Mod1grade").SetValueAsync(grade);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -183,10 +185,10 @@ public class LoadGrades : MonoBehaviour
         }
     }
 
-    private IEnumerator Mod2Grade(int grade)
+    private IEnumerator Mod2Grade(int grade, string uid)
     {
 
-        var DBTask = reference.Child("users").Child(UserId).Child("email").SetValueAsync(grade);
+        var DBTask = reference.Child("users").Child(uid).Child("Mod2grade").SetValueAsync(grade);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -200,10 +202,10 @@ public class LoadGrades : MonoBehaviour
         }
     }
 
-    private IEnumerator Mod3Grade(int grade)
+    private IEnumerator Mod3Grade(int grade, string uid)
     {
 
-        var DBTask = reference.Child("users").Child(UserId).Child("email").SetValueAsync(grade);
+        var DBTask = reference.Child("users").Child(uid).Child("Mod3grade").SetValueAsync(grade);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -217,10 +219,10 @@ public class LoadGrades : MonoBehaviour
         }
     }
 
-    private IEnumerator Mod4Grade(int grade)
+    private IEnumerator Mod4Grade(int grade, string uid)
     {
 
-        var DBTask = reference.Child("users").Child(UserId).Child("email").SetValueAsync(grade);
+        var DBTask = reference.Child("users").Child(uid).Child("Mod4grade").SetValueAsync(grade);
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
