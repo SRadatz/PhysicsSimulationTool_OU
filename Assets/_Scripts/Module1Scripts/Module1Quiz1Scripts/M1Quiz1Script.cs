@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine;
 
 public class M1Quiz1Script : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class M1Quiz1Script : MonoBehaviour
     [SerializeField] GameObject returnWarning;
     [SerializeField] QuizSimScript simScript;
     [SerializeField] Canvas QuizCanvas;
+    //[SerializeField] GameObject ReturnWarning;
 
     string question1 = "What combination of units adds up to ";
     string[] question1Prompts = new string[] { "2.143243Mg", "653.0004kg", "322.19242g", "23.1002g", "917.3131g" };
@@ -28,7 +28,7 @@ public class M1Quiz1Script : MonoBehaviour
     void Start()
     {
         answerWrongText.enabled = false;
-        arrayIndex = Random.Range(0, 4);
+        arrayIndex = Random.Range(0, 5);
         //Debug.Log(arrayIndex);
         scaleReading.text = question1Prompts[arrayIndex];
         string[] questionUnits = GetQuestionUnits();
@@ -95,6 +95,16 @@ public class M1Quiz1Script : MonoBehaviour
         {
             answerWrongText.enabled = true;
         }
+    }
+    public void ShowReturnWarning()
+    {
+        simScript.SetSimCanvasEnabled(false);
+        returnWarning.SetActive(true);
+    }
+    public void HideReturnWarning()
+    {
+        simScript.SetSimCanvasEnabled(true);
+        returnWarning.SetActive(false);
     }
     public string[] GetQuestionUnits()
     {
