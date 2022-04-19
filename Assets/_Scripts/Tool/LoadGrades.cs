@@ -29,7 +29,11 @@ public class LoadGrades : MonoBehaviour
     public GameObject TeacherUI;
 
     [Header("Teacher")]
-    private TMP_Dropdown dropDown;
+    public TMP_Dropdown StudentDropdown;
+    public TMP_InputField Module1Input;
+    public TMP_InputField Module2Input;
+    public TMP_InputField Module3Input;
+    public TMP_InputField Module4Input;
 
     private void Start()
     {
@@ -40,10 +44,8 @@ public class LoadGrades : MonoBehaviour
         {
             StudentUI.SetActive(false);
             TeacherUI.SetActive(true);
-            dropDown = GetComponent<TMP_Dropdown>();
-            dropDown.options.Clear();
             StartCoroutine(LoadDropDown());
-            DropdownSelect(dropDown);
+
         }
         else
         {
@@ -91,6 +93,7 @@ public class LoadGrades : MonoBehaviour
 
     private IEnumerator LoadDropDown()
     {
+        //StudentDropdown.options.Clear();
         var DBTask = reference.Child("users").OrderByChild("name").GetValueAsync();
 
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -106,17 +109,128 @@ public class LoadGrades : MonoBehaviour
             foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
             {
                 studentList.Add( childSnapshot.Child("name").Value.ToString(),childSnapshot.Child("UserID").Value.ToString() );
-                dropDown.options.Add(new TMP_Dropdown.OptionData() { text = childSnapshot.Child("name").Value.ToString() });
+                Debug.Log(childSnapshot.Child("name").Value.ToString()+ " + " + childSnapshot.Child("UserID").Value.ToString());
+                StudentDropdown.options.Add(new TMP_Dropdown.OptionData() { text = childSnapshot.Child("name").Value.ToString() });
             }
         }
+
+        StudentDropdown.onValueChanged.AddListener(delegate { DropdownSelect(StudentDropdown); });
     }
 
     void DropdownSelect(TMP_Dropdown dropdown)
     {
         int index = dropdown.value;
-        string studentName = dropdown.options[index].text;
-        string StudentId = studentList[studentName];
-        Debug.Log(StudentId);
+        if (index != 0)
+        {
+            string studentName = dropdown.options[index].text;
+            string StudentId = studentList[studentName];
+            Debug.Log(StudentId);
+            StartCoroutine(TeacherLoadGradeData(StudentId));
+        }
+        else
+        {
+            //Don't want to use the select student
+        }
+    }
 
+    private IEnumerator TeacherLoadGradeData(string studentID)
+    {
+        var DBTask = reference.Child("users").Child(studentID).GetValueAsync();
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            DataSnapshot snapshot = DBTask.Result;
+
+            //Student.text = snapshot.Child("name").Value.ToString();
+            Module1Input.text = snapshot.Child("Mod1grade").Value.ToString();
+            Module2Input.text = snapshot.Child("Mod2grade").Value.ToString();
+            Module3Input.text = snapshot.Child("Mod3grade").Value.ToString();
+            Module4Input.text = snapshot.Child("Mod4grade").Value.ToString();
+
+            //nameField.text = snapshot.Child("name").Value.ToString();
+        }
+    }
+
+    public void UpdateGrades()
+    {
+        StartCoroutine(Mod1Grade(int.Parse(Module1Input.text)));
+        StartCoroutine(Mod2Grade(int.Parse(Module2Input.text)));
+        StartCoroutine(Mod3Grade(int.Parse(Module3Input.text)));
+        StartCoroutine(Mod4Grade(int.Parse(Module4Input.text)));
+        //warning.text = "Information Updated";
+    }
+
+    private IEnumerator Mod1Grade(int grade)
+    {
+
+        var DBTask = reference.Child("users").Child(UserId).Child("Mod1grade").SetValueAsync(grade);
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            Debug.Log("Module 1 updated");
+        }
+    }
+
+    private IEnumerator Mod2Grade(int grade)
+    {
+
+        var DBTask = reference.Child("users").Child(UserId).Child("email").SetValueAsync(grade);
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            Debug.Log("Email updated");
+        }
+    }
+
+    private IEnumerator Mod3Grade(int grade)
+    {
+
+        var DBTask = reference.Child("users").Child(UserId).Child("email").SetValueAsync(grade);
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            Debug.Log("Email updated");
+        }
+    }
+
+    private IEnumerator Mod4Grade(int grade)
+    {
+
+        var DBTask = reference.Child("users").Child(UserId).Child("email").SetValueAsync(grade);
+
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        }
+        else
+        {
+            Debug.Log("Email updated");
+        }
     }
 }
