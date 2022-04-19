@@ -15,6 +15,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
     public DependencyStatus dependencyStatus;
     public DatabaseReference DBreference;
     public static string UserID;
+    public static bool isTeacher;
 
     [Header("Login")]
     public TMP_InputField emailLoginField;
@@ -62,17 +63,17 @@ public class FirebaseManager : Singleton<FirebaseManager>
         DBreference = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    public void SignOutButton()
-    {
-        auth.SignOut();
-        UIManager.instance.LoginScreen();
-        usernameRegField.text = "";
-        emailRegField.text = "";
-        passwordRegField.text = "";
-        passwordRegVerifyField.text = "";
-        emailLoginField.text = "";
-        passwordLoginField.text = "";
-    }
+    //public void SignOutButton()
+    //{
+    //    auth.SignOut();
+    //    UIManager.instance.LoginScreen();
+    //    usernameRegField.text = "";
+    //    emailRegField.text = "";
+    //    passwordRegField.text = "";
+    //    passwordRegVerifyField.text = "";
+    //    emailLoginField.text = "";
+    //    passwordLoginField.text = "";
+    //}
 
     public void RegisterButton()
     {
@@ -84,14 +85,14 @@ public class FirebaseManager : Singleton<FirebaseManager>
         StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
     }
 
-    public void SaveDataButton()
-    {
-        StartCoroutine(UpdateUsernameAuth(nameField.text));
-        StartCoroutine(UpdateUsernameDatabase(nameField.text));
-
-        StartCoroutine(UpdateEmail(emailField.text));
-        StartCoroutine(UpdateStudentID(StudentIDField.text));
-    }
+    //public void SaveDataButton()
+    //{
+    //    StartCoroutine(UpdateUsernameAuth(nameField.text));
+    //    StartCoroutine(UpdateUsernameDatabase(nameField.text));
+    //
+    //    StartCoroutine(UpdateEmail(emailField.text));
+    //    StartCoroutine(UpdateStudentID(StudentIDField.text));
+    //}
 
     private IEnumerator Register(string _email, string _password, string _username)
     {
@@ -154,6 +155,7 @@ public class FirebaseManager : Singleton<FirebaseManager>
                     {
                         UIManager.instance.LoginScreen();
                         warningRegText.text = "";
+                        StartCoroutine(UpdateTable());
                     }
                 }
             }
@@ -199,8 +201,9 @@ public class FirebaseManager : Singleton<FirebaseManager>
             Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
             loginWarningText.text = "";
             loginConfirmText.text = "Logged In";
-            StartCoroutine(LoadUserData());
+            //StartCoroutine(isTeacherCheck());
             UserID = User.UserId;
+            //Debug.Log("this is a teacher "+isTeacher);
 
             yield return new WaitForSeconds(1);
 
@@ -213,50 +216,59 @@ public class FirebaseManager : Singleton<FirebaseManager>
         }
     }
 
-    private IEnumerator UpdateUsernameAuth(string _username)
+    //private IEnumerator UpdateUsernameAuth(string _username)
+    //{
+    //    
+    //    UserProfile profile = new UserProfile { DisplayName = _username };
+    //
+    //    
+    //    var ProfileTask = User.UpdateUserProfileAsync(profile);
+    //    
+    //    yield return new WaitUntil(predicate: () => ProfileTask.IsCompleted);
+    //
+    //    if (ProfileTask.Exception != null)
+    //    {
+    //        Debug.LogWarning(message: $"Failed to register task with {ProfileTask.Exception}");
+    //    }
+    //    else
+    //    {
+    //        
+    //    }
+    //}
+    //
+    //private IEnumerator UpdateUsernameDatabase(string _username)
+    //{
+    //    
+    //    var DBTask = DBreference.Child("users").Child(User.UserId).Child("name").SetValueAsync(_username);
+    //
+    //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+    //
+    //    if (DBTask.Exception != null)
+    //    {
+    //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Username updated");
+    //    }
+    //}
+    //
+    private IEnumerator UpdateTable()
     {
-        
-        UserProfile profile = new UserProfile { DisplayName = _username };
+        string email = User.Email;
+        string name = "Name";
+        bool isTeacher = false;
+        string userIdent = User.UserId;
+        string sid = "G00123456";
+        float Mod1grade = 0.0f;
+        float Mod2grade = 0.0f;
+        float Mod3grade = 0.0f;
+        float Mod4grade = 0.0f;
 
-        
-        var ProfileTask = User.UpdateUserProfileAsync(profile);
-        
-        yield return new WaitUntil(predicate: () => ProfileTask.IsCompleted);
-
-        if (ProfileTask.Exception != null)
-        {
-            Debug.LogWarning(message: $"Failed to register task with {ProfileTask.Exception}");
-        }
-        else
-        {
-            
-        }
-    }
-
-    private IEnumerator UpdateUsernameDatabase(string _username)
-    {
-        
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child("name").SetValueAsync(_username);
-
+        var DBTask = DBreference.Child("users").Child(User.UserId).Child("email").SetValueAsync(email);
+    
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-        if (DBTask.Exception != null)
-        {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-        else
-        {
-            Debug.Log("Username updated");
-        }
-    }
-
-    private IEnumerator UpdateEmail(string _email)
-    {
-        
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child("email").SetValueAsync(_email);
-
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
+    
         if (DBTask.Exception != null)
         {
             Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
@@ -265,50 +277,188 @@ public class FirebaseManager : Singleton<FirebaseManager>
         {
             Debug.Log("Email updated");
         }
-    }
-    private IEnumerator UpdateStudentID(string _ID)
-    {
-        
-        var DBTask = DBreference.Child("users").Child(User.UserId).Child("sid").SetValueAsync(_ID);
 
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+        var DBTask2 = DBreference.Child("users").Child(User.UserId).Child("name").SetValueAsync(name);
 
-        if (DBTask.Exception != null)
+        yield return new WaitUntil(predicate: () => DBTask2.IsCompleted);
+
+        if (DBTask2.Exception != null)
         {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            Debug.LogWarning(message: $"Failed to register task with {DBTask2.Exception}");
         }
         else
         {
-            Debug.Log("SID updated");
+            Debug.Log("Email updated");
         }
-    }
 
-    public IEnumerator LoadUserData()
-    {
-        
-        var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
+        var DBTask3 = DBreference.Child("users").Child(User.UserId).Child("sid").SetValueAsync(sid);
 
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+        yield return new WaitUntil(predicate: () => DBTask3.IsCompleted);
 
-        if (DBTask.Exception != null)
+        if (DBTask3.Exception != null)
         {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-        else if (DBTask.Result.Value == null)
-        {
-            //No data exists
-            nameField.text = "";
-            emailField.text = "";
-            StudentIDField.text = "";
+            Debug.LogWarning(message: $"Failed to register task with {DBTask3.Exception}");
         }
         else
         {
-            
-            DataSnapshot snapshot = DBTask.Result;
+            Debug.Log("Email updated");
+        }
 
-            nameField.text = snapshot.Child("name").Value.ToString();
-            emailField.text = snapshot.Child("email").Value.ToString();
-            StudentIDField.text = snapshot.Child("sid").Value.ToString();
+        var DBTask4 = DBreference.Child("users").Child(User.UserId).Child("Mod1grade").SetValueAsync(Mod1grade);
+
+        yield return new WaitUntil(predicate: () => DBTask4.IsCompleted);
+
+        if (DBTask4.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask4.Exception}");
+        }
+        else
+        {
+            Debug.Log("Mod1 updated");
+        }
+
+        var DBTask5 = DBreference.Child("users").Child(User.UserId).Child("Mod2grade").SetValueAsync(Mod2grade);
+
+        yield return new WaitUntil(predicate: () => DBTask5.IsCompleted);
+
+        if (DBTask5.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask5.Exception}");
+        }
+        else
+        {
+            Debug.Log("Mod2 updated");
+        }
+
+        var DBTask6 = DBreference.Child("users").Child(User.UserId).Child("Mod3grade").SetValueAsync(Mod3grade);
+
+        yield return new WaitUntil(predicate: () => DBTask6.IsCompleted);
+
+        if (DBTask6.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask6.Exception}");
+        }
+        else
+        {
+            Debug.Log("Mod3 updated");
+        }
+
+        var DBTask7 = DBreference.Child("users").Child(User.UserId).Child("Mod4grade").SetValueAsync(Mod4grade);
+
+        yield return new WaitUntil(predicate: () => DBTask7.IsCompleted);
+
+        if (DBTask7.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask7.Exception}");
+        }
+        else
+        {
+            Debug.Log("Mod4 updated");
+        }
+
+        var DBTask8 = DBreference.Child("users").Child(User.UserId).Child("isTeacher").SetValueAsync(isTeacher);
+
+        yield return new WaitUntil(predicate: () => DBTask8.IsCompleted);
+
+        if (DBTask8.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask8.Exception}");
+        }
+        else
+        {
+            Debug.Log("isTeacher updated");
+        }
+
+        var DBTask9 = DBreference.Child("users").Child(User.UserId).Child("UserID").SetValueAsync(userIdent);
+
+        yield return new WaitUntil(predicate: () => DBTask9.IsCompleted);
+
+        if (DBTask9.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to register task with {DBTask9.Exception}");
+        }
+        else
+        {
+            Debug.Log("UID updated");
         }
     }
+    //private IEnumerator UpdateStudentID(string _ID)
+    //{
+    //    
+    //    var DBTask = DBreference.Child("users").Child(User.UserId).Child("sid").SetValueAsync(_ID);
+    //
+    //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+    //
+    //    if (DBTask.Exception != null)
+    //    {
+    //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("SID updated");
+    //    }
+    //}
+
+    //public IEnumerator LoadUserData()
+    //{
+    //    
+    //    var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
+    //
+    //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+    //
+    //    if (DBTask.Exception != null)
+    //    {
+    //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+    //    }
+    //    else if (DBTask.Result.Value == null)
+    //    {
+    //        //No data exists
+    //        nameField.text = "";
+    //        emailField.text = "";
+    //        StudentIDField.text = "";
+    //    }
+    //    else
+    //    {
+    //        
+    //        DataSnapshot snapshot = DBTask.Result;
+    //
+    //        nameField.text = snapshot.Child("name").Value.ToString();
+    //        emailField.text = snapshot.Child("email").Value.ToString();
+    //        StudentIDField.text = snapshot.Child("sid").Value.ToString();
+    //    }
+    //}
+
+    //public IEnumerator isTeacherCheck()
+    //{
+    //
+    //    var DBTask = DBreference.Child("users").Child("isTeacher").GetValueAsync();
+    //
+    //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+    //
+    //    if (DBTask.Exception != null)
+    //    {
+    //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+    //    }
+    //    else if (DBTask.Result.Value == null)
+    //    {
+    //        //No data exists
+    //        isTeacher = false;
+    //    }
+    //    else
+    //    {
+    //
+    //        DataSnapshot snapshot = DBTask.Result;
+    //
+    //        string isTeacherChek = snapshot.Child("isTeacher").Value.ToString();
+    //
+    //        if(isTeacherChek == "true")
+    //        {
+    //            isTeacher = true;
+    //        }
+    //        else
+    //        {
+    //            isTeacher = false;
+    //        }
+    //    }
+    //}
 } 
