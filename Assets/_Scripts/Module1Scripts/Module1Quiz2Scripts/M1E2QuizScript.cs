@@ -27,21 +27,31 @@ public class M1E2QuizScript : MonoBehaviour
     [SerializeField] TMP_Dropdown answerDropdown;
     [SerializeField] GameObject winScreen;
     [SerializeField] GameObject returnWarning;
-    [SerializeField] QuizSimScript simScript;
+    //[SerializeField] QuizSimScript simScript;
     [SerializeField] Canvas QuizCanvas;
 
-    int[] sigFigQuestions = new int[] { 6, 8, 4, 5, 7, 5, 10 };
-    string[] prompts = new string[] {"Average velocity of a car having traveled 8.4km in 2.03s", "Force on a 12.34kg block accelerating at 5.242m/s", "Launch speed of a ball thrown at a 54 degree angle traveling 24m in 2.2s",
-        "Revolutions per second required to give an astronaut of 29.4m/s in a circular motion w/ 9.45m radius", "Speed of a wrecking ball rotating counterclockwise with (-22/5i + 20.2j)m/s/s acceleration",
-        "Maximum speed a light truck can go around a 75m radius curve at 32m/s", "Initial speed a 2m tall basketball player standing 10m from a 3.05m hoop must throw the ball to get nothing but net."};
-    string[] promptAnswers = new string[] { "0004.13793103", "0064.68628000", "0018.14602160", "0000.28075268", "0006.67008246", "0022.62741700", "0010.66395800" };
-    string[] promptAnswerUnits = new string[] { "km/s", "N", "m/s", "rps", "m/s", "m/s", "m/s" };
+    string[] questionDescriptions = new string[] {"Round 0054.40533330,  the radial acceleration of a ball being whirled around in a 0.3m circle, to 2 significant figures",
+    "Round 0009.95193449, the velocity of a car rolling off a 30m cliff at a 37.08 degree angle below the horizontal, to 7 significant figures",
+    "Round 0022.91325700, the minumum constant velocity a Road Runner must move to beat a Coyote on rocket roller skates, to 9 significant figures",
+    "Round 0266.55449000, the distance a ship can be from a shore to be safe from bombardment of a ship 2500m from the 1800m peak between them, to 6 significant figures"};
+    string[] question1CorrectAnswers = {};
+    string[] question1WrongAnswer1 = {};
+    string[] question1WrongAnswer2 = {};
+    string[] question1WrongAnswer3 = {};
+
+
+    int[] sigFigQuestions = new int[] {2, 7, 9, 6};
+    string[] prompts = new string[] {"Radial acceleration of a ball being whirled around in a 0.3m circle", "Velocity of a car rolling off a 30m cliff at a 37.08 degree angle below the horizontal", 
+        "Minumum constant velocity a Road Runner must move to beat a Coyote on rocket roller skates", "Distance a ship can be from a shore to be safe from bombardment of a ship 2500m from the 1800m peak between them"};
+    string[] promptAnswers = new string[] {"0054.40533330", "0009.95193449", "0022.91325700", "0266.55449000" };
+    //string[] promptAnswerUnits = new string[] {"m/s/s", "m/s", "m/s", "m"};
     int arrayIndex = 1;
-    int prevIndex = -1;
+    //int prevIndex = -1;
     // Start is called before the first frame update
     void Start()
     {
-        
+        arrayIndex = Random.Range(0, 4);
+        GeneratePrompt();
     }
 
     // Update is called once per frame
@@ -51,12 +61,14 @@ public class M1E2QuizScript : MonoBehaviour
     }
     public void GeneratePrompt()
     {
-        while (arrayIndex == prevIndex)
-            arrayIndex = Random.Range(0, 6);
-        prevIndex = arrayIndex;
-
+        //prevIndex = arrayIndex;
+        //Debug.Log(arrayIndex);
+        questionDescription.text = questionDescriptions[arrayIndex];
         //set text boxes to display proper information
-        FindSigFigTxt.text = "Find the " + sigFigQuestions[arrayIndex] + "th Significant Figure in the prompt below";
+        if (arrayIndex == 0)
+            FindSigFigTxt.text = "Find the " + sigFigQuestions[arrayIndex] + "nd Significant Figure in the prompt below";
+        else
+            FindSigFigTxt.text = "Find the " + sigFigQuestions[arrayIndex] + "th Significant Figure in the prompt below";
         PromptText.text = prompts[arrayIndex];
         AnswerTxt1.text = promptAnswers[arrayIndex][0] + "";
         AnswerTxt2.text = promptAnswers[arrayIndex][1] + "";
