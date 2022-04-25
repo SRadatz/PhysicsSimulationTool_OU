@@ -4126,6 +4126,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0a715f0c262e34cb289f0012c82927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FindSigFigTxt: {fileID: 913691691}
+  PromptText: {fileID: 303739547}
+  AnswerTxt1: {fileID: 468558371}
+  AnswerTxt2: {fileID: 1989451219}
+  AnswerTxt3: {fileID: 1693048328}
+  AnswerTxt4: {fileID: 1191794709}
+  AnswerTxt5: {fileID: 563166659}
+  AnswerTxt6: {fileID: 1262551498}
+  AnswerTxt7: {fileID: 2110721473}
+  AnswerTxt8: {fileID: 828594391}
+  AnswerTxt9: {fileID: 1308714039}
+  AnswerTxt10: {fileID: 1248345218}
+  AnswerTxt11: {fileID: 2035360989}
+  AnswerTxt12: {fileID: 119323579}
+  questionDescription: {fileID: 1962102501}
+  answerWrongText: {fileID: 394792994}
+  answerDropdown: {fileID: 1238440821}
+  winScreen: {fileID: 1784315115}
+  returnWarning: {fileID: 2100084450}
+  QuizCanvas: {fileID: 1157742689}
 --- !u!4 &639856910
 Transform:
   m_ObjectHideFlags: 0
@@ -6456,7 +6476,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 964, y: 539, z: -134}
+  m_LocalPosition: {x: 959, y: 539, z: -134}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1569987882}
@@ -7972,8 +7992,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: M1Quiz1Script, Assembly-CSharp
+      - m_Target: {fileID: 639856909}
+        m_TargetAssemblyTypeName: M1E2QuizScript, Assembly-CSharp
         m_MethodName: HideWrongAnswerText
         m_Mode: 1
         m_Arguments:
@@ -9101,8 +9121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: M1Quiz1Script, Assembly-CSharp
+      - m_Target: {fileID: 639856909}
+        m_TargetAssemblyTypeName: M1E2QuizScript, Assembly-CSharp
         m_MethodName: HideReturnWarning
         m_Mode: 1
         m_Arguments:
@@ -9704,8 +9724,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: M1Quiz1Script, Assembly-CSharp
+      - m_Target: {fileID: 639856909}
+        m_TargetAssemblyTypeName: M1E2QuizScript, Assembly-CSharp
         m_MethodName: ShowReturnWarning
         m_Mode: 1
         m_Arguments:
@@ -10233,8 +10253,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: M1Quiz1Script, Assembly-CSharp
+      - m_Target: {fileID: 639856909}
+        m_TargetAssemblyTypeName: M1E2QuizScript, Assembly-CSharp
         m_MethodName: CheckAnswer
         m_Mode: 1
         m_Arguments:
@@ -10363,7 +10383,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: m1ExOneShowParam
+          m_StringArgument: m1ExTwoShowParam
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1614765404

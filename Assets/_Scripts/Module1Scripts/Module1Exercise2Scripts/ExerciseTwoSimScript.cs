@@ -54,12 +54,13 @@ public class ExerciseTwoSimScript : MonoBehaviour
     [SerializeField] GameObject DigitXMark11;
     [SerializeField] GameObject DigitXMark12;
 
-    int[] sigFigQuestions = new int[] {6, 8, 4, 5, 7, 5, 10};
+    int[] sigFigQuestions = new int[] {6, 8, 4, 5, 7, 5, 10, 6};
     string [] prompts = new string[] {"Average velocity of a car having traveled 8.4km in 2.03s", "Force on a 12.34kg block accelerating at 5.242m/s", "Launch speed of a ball thrown at a 54 degree angle traveling 24m in 2.2s",
         "Revolutions per second required to give an astronaut of 29.4m/s in a circular motion w/ 9.45m radius", "Speed of a wrecking ball rotating counterclockwise with (-22/5i + 20.2j)m/s/s acceleration",
-        "Maximum speed a light truck can go around a 75m radius curve at 32m/s", "Initial speed a 2m tall basketball player standing 10m from a 3.05m hoop must throw the ball to get nothing but net."};
-    string [] promptAnswers = new string[] { "0004.13793103", "0064.68628000", "0018.14602160", "0000.28075268", "0006.67008246", "0022.62741700", "0010.66395800" };
-    string [] promptAnswerUnits = new string [] {"km/s", "N", "m/s", "rps", "m/s", "m/s", "m/s"};
+        "Maximum speed a light truck can go around a 75m radius curve at 32m/s", "Initial speed a 2m tall basketball player standing 10m from a 3.05m hoop must throw the ball to get nothing but net.", 
+        "Speed of the Vomit Comet astronaut training craft flying at 143ms at 45 degrees heading upward"};
+    string [] promptAnswers = new string[] { "0004.13793103", "0064.68628000", "0018.14602160", "0000.28075268", "0006.67008246", "0022.62741700", "0010.66395800", "0101.11627000" };
+    string [] promptAnswerUnits = new string [] {"km/s", "N", "m/s", "rps", "m/s", "m/s", "m/s", "m/s"};
     int arrayIndex = 1;
     int prevIndex = -1;
 
@@ -76,7 +77,7 @@ public class ExerciseTwoSimScript : MonoBehaviour
     public void GeneratePrompt()
     {
         while(arrayIndex == prevIndex)
-            arrayIndex = Random.Range(0, 6);
+            arrayIndex = Random.Range(0, 8);
         prevIndex = arrayIndex;
         //Ensure all check's and x's are invisible
         DigitCheckmark1.SetActive(false);
@@ -604,6 +605,75 @@ public class ExerciseTwoSimScript : MonoBehaviour
 
                 }
                 break;
+            //0101.1162700
+            case 7:
+                switch (btnPressed)
+                {
+                    case 1:
+                        //not a sig fig
+                        DigitXMark1.SetActive(true);
+                        HintTxt.text = "Remember: Zeroes before the first nonzero digit before the decimal are NOT sig figs";
+                        break;
+                    case 2:
+                        //sig fig 1
+                        DigitXMark2.SetActive(true);
+                        HintTxt.text = "You need quite a few more sig figs";
+                        break;
+                    case 3:
+                        //sig fig 2
+                        DigitXMark3.SetActive(true);
+                        HintTxt.text = "Not quite. That's not enough sig figs";
+                        break;
+                    case 4:
+                        //sig fig 3
+                        DigitXMark4.SetActive(true);
+                        HintTxt.text = "Not quite. That's not enough sig figs";
+                        break;
+                    case 5:
+                        //sig fig 4
+                        DigitXMark5.SetActive(true);
+                        HintTxt.text = "Almost! You're only a bit off!";
+                        break;
+                    case 6:
+                        //sig fig 5   
+                        DigitXMark6.SetActive(true);
+                        HintTxt.text = "Almost! You're only a bit off!";
+                        break;
+                    case 7:
+                        //sig fig 6
+                        DigitCheckmark7.SetActive(true);
+                        HintTxt.text = "Correct! If we rounded to the 4th sig fig, the answer would be 101.116";
+                        break;
+                    case 8:
+                        //sig fig 7
+                        DigitXMark8.SetActive(true);
+                        HintTxt.text = "Almost! You have a bit too many sig figs!";
+                        break;
+                    case 9:
+                        //sig fig 8
+                        DigitXMark9.SetActive(true);
+                        HintTxt.text = "Almost! You have a bit too many sig figs!";
+                        break;
+                    case 10:
+                        //sig fig 9
+                        DigitXMark10.SetActive(true);
+                        HintTxt.text = "Not quite. That's too many sig figs";
+                        break;
+                    case 11:
+                        //sig fig 10
+                        DigitXMark11.SetActive(true);
+                        HintTxt.text = "Not quite. That's too many sig figs";
+                        break;
+                    case 12:
+                        //sig fig 11
+                        //correct
+                        DigitXMark12.SetActive(true);
+                        HintTxt.text = "Not quite. That's too many sig figs";
+                        break;
+
+                }
+                break;
+
         }
     }
     public void ShowSigFigHelp()
