@@ -24,6 +24,18 @@ EditorBuildSettings:
     path: Assets/_Scenes/Module1/ModOneExSelectB.unity
     guid: 47b0664c8b7607c48babdfc88420d18d
   - enabled: 1
+    path: Assets/_Scenes/Module1/m1ExOne/m1ExOneShowParam.unity
+    guid: 3533b1adcee922d4488192f69a04a632
+  - enabled: 1
+    path: Assets/_Scenes/Module1/m1ExOne/m1ExOneShowQuiz.unity
+    guid: bca463684eeb21449a127f50cc616bc1
+  - enabled: 1
+    path: Assets/_Scenes/Module1/m1ExTwo/m1ExTwoShowParam.unity
+    guid: 7a19415c301377e458dd114355cca88b
+  - enabled: 1
+    path: Assets/_Scenes/Module1/m1ExTwo/m1ExTwoShowQuiz.unity
+    guid: 57bdfd3fa835dd041a387332505e851a
+  - enabled: 1
     path: Assets/_Scenes/Module2/ModTwoExSelectA.unity
     guid: 25b132b647bc76b4ea66a38bc326926d
   - enabled: 1
@@ -50,9 +62,6 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/_Scenes/Module1/m1ExOne/m1ExOneShowQuiz.unity
-    guid: bca463684eeb21449a127f50cc616bc1
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainMenuScript : MonoBehaviour
 {
     [SerializeField] GameObject m1e1PreviewImage;
+    [SerializeField] GameObject m1e2PreviewImage;
     [SerializeField] GameObject m2e1PreviewImage;
     [SerializeField] GameObject m2e2PreviewImage;
     int currentImage;
@@ -13,6 +14,7 @@ public class MainMenuScript : MonoBehaviour
     {
         currentImage = 1;
         m1e1PreviewImage.SetActive(true);
+        m1e2PreviewImage.SetActive(false);
         m2e1PreviewImage.SetActive(false);
         m2e2PreviewImage.SetActive(false);
         SlideShow();
@@ -33,22 +35,33 @@ public class MainMenuScript : MonoBehaviour
         {
             case 1:
                 m1e1PreviewImage.SetActive(false);
-                m2e1PreviewImage.SetActive(true);
+                m1e2PreviewImage.SetActive(true);
+                m2e1PreviewImage.SetActive(false);
                 m2e2PreviewImage.SetActive(false);
                 currentImage = 2;
                 break;
             case 2:
                 m1e1PreviewImage.SetActive(false);
-                m2e1PreviewImage.SetActive(false);
-                m2e2PreviewImage.SetActive(true);
+                m1e2PreviewImage.SetActive(false);
+                m2e1PreviewImage.SetActive(true);
+                m2e2PreviewImage.SetActive(false);
                 currentImage = 3;
                 break;
             case 3:
+                m1e1PreviewImage.SetActive(false);
+                m1e2PreviewImage.SetActive(false);
+                m2e1PreviewImage.SetActive(false);
+                m2e2PreviewImage.SetActive(true);
+                currentImage = 4;
+                break;
+            case 4:
                 m1e1PreviewImage.SetActive(true);
+                m1e2PreviewImage.SetActive(false);
                 m2e1PreviewImage.SetActive(false);
                 m2e2PreviewImage.SetActive(false);
                 currentImage = 1;
                 break;
+
 
         }
         Debug.Log(currentImage);
