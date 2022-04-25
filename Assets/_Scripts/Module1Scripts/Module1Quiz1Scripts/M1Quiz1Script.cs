@@ -7,6 +7,7 @@ using TMPro;
 public class M1Quiz1Script : MonoBehaviour
 {
     [SerializeField] TMP_Text scaleReading;
+    [SerializeField] TMP_Text scoreTxt;
     [SerializeField] TMP_Text questionDescription;
     [SerializeField] TMP_Text answerWrongText;
     [SerializeField] TMP_Dropdown answerDropdown;
@@ -24,6 +25,7 @@ public class M1Quiz1Script : MonoBehaviour
     string[] question1WrongAnswer3 = { "0.2143243kg", "653,400g", "322,192mg + 4,200ug", "231,020mg + 2ug", "9,173ug + 1310ug" };
     
     int arrayIndex;
+    float score = 100;
     //int prevIndex = -1;
     void Start()
     {
@@ -94,6 +96,11 @@ public class M1Quiz1Script : MonoBehaviour
         else
         {
             answerWrongText.enabled = true;
+            if (score > 0)
+                score -= 25;
+            else
+                score = score;
+            scoreTxt.text = "" + score;
         }
     }
     public void ShowReturnWarning()
