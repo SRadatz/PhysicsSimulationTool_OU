@@ -67,6 +67,7 @@ public class ExerciseTwoSimScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        arrayIndex = Random.Range(0, 8);
         GeneratePrompt();
     }
     // Update is called once per frame
