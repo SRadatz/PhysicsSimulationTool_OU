@@ -8,6 +8,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] GameObject m1e2PreviewImage;
     [SerializeField] GameObject m2e1PreviewImage;
     [SerializeField] GameObject m2e2PreviewImage;
+    [SerializeField] GameObject m3e1PreviewImage;
     int currentImage;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class MainMenuScript : MonoBehaviour
         m1e2PreviewImage.SetActive(false);
         m2e1PreviewImage.SetActive(false);
         m2e2PreviewImage.SetActive(false);
+        m3e1PreviewImage.SetActive(false);
         SlideShow();
     }
 
@@ -38,6 +40,7 @@ public class MainMenuScript : MonoBehaviour
                 m1e2PreviewImage.SetActive(true);
                 m2e1PreviewImage.SetActive(false);
                 m2e2PreviewImage.SetActive(false);
+                m3e1PreviewImage.SetActive(false);
                 currentImage = 2;
                 break;
             case 2:
@@ -45,6 +48,7 @@ public class MainMenuScript : MonoBehaviour
                 m1e2PreviewImage.SetActive(false);
                 m2e1PreviewImage.SetActive(true);
                 m2e2PreviewImage.SetActive(false);
+                m3e1PreviewImage.SetActive(false);
                 currentImage = 3;
                 break;
             case 3:
@@ -52,13 +56,23 @@ public class MainMenuScript : MonoBehaviour
                 m1e2PreviewImage.SetActive(false);
                 m2e1PreviewImage.SetActive(false);
                 m2e2PreviewImage.SetActive(true);
+                m3e1PreviewImage.SetActive(false);
                 currentImage = 4;
                 break;
             case 4:
+                m1e1PreviewImage.SetActive(false);
+                m1e2PreviewImage.SetActive(false);
+                m2e1PreviewImage.SetActive(false);
+                m2e2PreviewImage.SetActive(false);
+                m3e1PreviewImage.SetActive(true);
+                currentImage = 5;
+                break;
+            case 5:
                 m1e1PreviewImage.SetActive(true);
                 m1e2PreviewImage.SetActive(false);
                 m2e1PreviewImage.SetActive(false);
                 m2e2PreviewImage.SetActive(false);
+                m3e1PreviewImage.SetActive(false);
                 currentImage = 1;
                 break;
 
